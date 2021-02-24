@@ -80,7 +80,7 @@ else
 	@echo "make logs ARGUMENT"
 	@echo "---"
 	@echo "stack: logs stack"
-	@echo "www: REDIS"
+	@echo "www: WWW"
 endif
 
 git: node_modules ## Scripts GIT
