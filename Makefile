@@ -5,7 +5,6 @@ NETWORK       := proxynetwork
 
 WWW         := $(STACK)_www
 WWWFULLNAME := $(WWW).1.$$(docker service ps -f 'name=$(WWW)' $(WWW) -q --no-trunc | head -n1)
-WWWRUN      := docker run --rm -v ${PWD}/apps:/app koromerzhin/nodejs:4.5.8-vuejs
 
 SUPPORTED_COMMANDS := contributors docker logs git linter sleep
 SUPPORTS_MAKE_ARGS := $(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS))
@@ -16,9 +15,6 @@ endif
 
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
-
-apps/node_modules:
-	$(WWWRUN) npm install
 
 .PHONY: isdocker
 isdocker: ## Docker is launch
@@ -101,7 +97,7 @@ else
 	@echo "status: status"
 endif
 
-install: node_modules apps/node_modules ## Installation
+install: node_modules ## Installation
 	@make docker deploy -i
 
 linter: node_modules ## Scripts Linter
