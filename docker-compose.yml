@@ -1,0 +1,32 @@
+version: "3.4"
+networks:
+  proxynetwork:
+    external: true
+  net:
+    driver: overlay
+    attachable: true
+services:
+  exec:
+    image: koromerzhin/nodejs:15.1.0
+    volumes:
+      - ${PWD}/apps:/app
+    command: sh -c "npm install"
+    deploy:
+      restart_policy:
+        condition: none
+      labels:
+        - "traefik.enable=false"
+  www:
+    image: koromerzhin/nodejs:15.1.0
+    volumes:
+      - ${PWD}/apps:/app
+    networks:
+      - proxynetwork
+      - net
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.vuejs.rule=Host(`vuejs.traefik.me`)"
+        - "traefik.http.routers.vuejs-tls.tls.domains[0].main=vuejs.traefik.me"
+        - "traefik.http.routers.vuejs-tls.tls.domains[0].sans=vuejs-*.traefik.me"
+        - "traefik.http.services.vuejs.loadbalancer.server.port=8080"
