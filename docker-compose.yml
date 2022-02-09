@@ -19,5 +19,7 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.vuejs.rule=HostRegexp(`vuejs.traefik.me`, `vuejs.{ip:.*}.traefik.me`)"
+        - "traefik.http.routers.vuejs.rule=Host(`vuejs.traefik.me`)"
+        - "traefik.http.routers.vuejs-tls.tls.domains[0].main=vuejs.traefik.me"
+        - "traefik.http.routers.vuejs.tls=true"
         - "traefik.http.services.vuejs.loadbalancer.server.port=8080"
