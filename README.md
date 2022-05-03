@@ -30,6 +30,14 @@ Hosts:
 
 - vuejs.traefik.me
 
+## Download
+
+```sh
+git clone git@github.com:koromerzhin/template-vuejs.git template-vuejs
+cd template-vuejs
+git submodule update --init
+```
+
 ## Install
 
 ``` sh
