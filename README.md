@@ -1,23 +1,22 @@
-# Welcome to @koromerzhin/template-vuejs 👋
+# Welcome to @hackariens/vuejs 👋
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/koromerzhin/template-vuejs/graphs/commit-activity)
-![Continuous Integration](https://github.com/koromerzhin/template-vuejs/workflows/Continuous%20Integration/badge.svg?branch=develop)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/hackariens/vuejs/graphs/commit-activity)
+![Continuous Integration](https://github.com/hackariens/vuejs/workflows/Continuous%20Integration/badge.svg?branch=develop)
 
 > Templates pour la création d'un nouveau projet vuejs
 
-## 🏠 [Homepage](https://github.com/koromerzhin/template-vuejs#readme)
+## 🏠 [Homepage](https://github.com/hackariens/vuejs#readme)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#-contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)]
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Need
 
 Software:
 
-- make
 - npm
 - docker
 - repository koromerzhin/lampy
@@ -33,27 +32,20 @@ Hosts:
 ## Download
 
 ```sh
-git clone git@github.com:koromerzhin/template-vuejs.git template-vuejs
-cd template-vuejs
-git submodule update --init
+git clone git@github.com:hackariens/vuejs.git template-vuejs
+cd vuejs
 ```
 
 ## Install
 
 ``` sh
-make install
+npm install
 ```
 
-## after git add
+## Launch
 
 ``` sh
-make git check
-```
-
-## help
-
-``` sh
-make help
+npm run exec
 ```
 
 ## Author
@@ -69,9 +61,9 @@ make help
 
 Contributions, issues and feature requests are welcome!
 Feel free to check
-[issues page](https://github.com/koromerzhin/template-vuejs/issues).
+[issues page](https://github.com/hackariens/vuejs/issues).
 You can also take a look at the
-[contributing guide](https://github.com/koromerzhin/template-vuejs/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/hackariens/vuejs/blob/develop/CONTRIBUTING.md).
 
 ## Show your support
 
@@ -82,7 +74,7 @@ Give a ⭐️ if this project helped you!
 Copyright © 2019 [koromerzhin](https://github.com/koromerzhin).
 
 This project is
-[MIT](https://github.com/koromerzhin/template-vuejs/blob/develop/LICENSE) licensed.
+[MIT](https://github.com/hackariens/vuejs/blob/develop/LICENSE) licensed.
 
 ## ✨ Contributors
 
