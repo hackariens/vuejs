@@ -1,0 +1,27 @@
+{
+  "name": "@hackariens/vuejs",
+  "version": "1.0.0",
+  "description": "Templates pour la création d'un nouveau projet vuejs",
+  "scripts": {
+    "docker:deploy": "korojscommands docker_deploy",
+    "docker:getpull-image": "korojscommands docker_getpull-image",
+    "docker:ls": "korojscommands docker_ls",
+    "docker:waiting": "korojscommands docker_waiting --status running --container www",
+    "exec": "npm-run-all docker:getpull-image docker:deploy docker:waiting docker:ls",
+    "lint:markdown": "markdownlint README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackariens/vuejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hackariens/vuejs/issues"
+  },
+  "homepage": "https://github.com/hackariens/vuejs#readme",
+  "dependencies": {
+    "korojscommands": "^1.2.7"
+  }
+}
