@@ -36,6 +36,10 @@ git clone --recurse-submodules git@github.com:hackariens/vuejs.git vuejs
 cd vuejs
 ```
 
+## Environnment
+
+Edit .env with .env.example
+
 ## Install
 
 ``` sh
