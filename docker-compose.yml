@@ -1,10 +1,4 @@
 version: "3.4"
-networks:
-  proxylampy:
-    external: true
-  net:
-    driver: overlay
-    attachable: true
 services:
   www:
     image: node:15.14.0
@@ -12,14 +6,4 @@ services:
     command: >
       sh -c "npm install && npm run start"
     volumes:
-      - ${PWD}/apps:/app
-    networks:
-      - proxylampy
-      - net
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.vuejs.rule=Host(`vuejs.traefik.me`)"
-        - "traefik.http.routers.vuejs-tls.tls.domains[0].main=vuejs.traefik.me"
-        - "traefik.http.routers.vuejs.tls=true"
-        - "traefik.http.services.vuejs.loadbalancer.server.port=8080"
+      - ${PWD}/apps:/app:delegated
