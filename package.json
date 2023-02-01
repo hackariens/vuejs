@@ -24,6 +24,6 @@
   "homepage": "https://github.com/hackariens/vuejs#readme",
   "dependencies": {
     "create-vue": "^3.5.0",
-    "korojscommands": "^1.2.13"
+    "korojscommands": "^1.2.14"
   }
 }
