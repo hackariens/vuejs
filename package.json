@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Templates pour la création d'un nouveau projet vuejs",
   "scripts": {
-    "create:apps": "npm create vue@3 apps",
+    "create:apps": "create-vue apps --default",
     "docker:deploy": "korojscommands docker_deploy",
     "docker:getpull-image": "korojscommands docker_getpull-image",
     "docker:ls": "korojscommands docker_ls",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/hackariens/vuejs#readme",
   "dependencies": {
+    "create-vue": "^3.5.0",
     "korojscommands": "^1.2.13"
   }
 }
