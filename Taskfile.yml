@@ -43,6 +43,7 @@ tasks:
   help:
     desc: "Affiche l'aide détaillée"
     aliases: [ h ]
+    silent: true
     cmds:
     - task: default
 
@@ -82,9 +83,10 @@ tasks:
 
   create:apps:
     desc: "Crée une nouvelle application vuejs dans le dossier apps"
+    silent: true
     cmds:
     - npx --yes create-vue apps --default
-  
+
   update:viteconfig:
     silent: true
     desc: "Met à jour vite.config.js pour ajouter server.allowedHosts"
@@ -96,7 +98,7 @@ tasks:
       const path = 'apps/vite.config.js';
       let content = fs.readFileSync(path, 'utf8');
       const serverName = '{{.SERVERNAME}}';
-      
+
       if (!content.includes('server:')) {
         // Si server n'existe pas, l'ajouter complètement
         content = content.replace(
@@ -126,12 +128,13 @@ tasks:
           }
         }
       }
-      
+
       fs.writeFileSync(path, content);
       "
 
   vuejs:exec:
     desc: "Exécute une commande dans un conteneur en cours d'exécution"
+    silent: true
     cmds:
     - task: vuejs:getpull-image
     - task: create:apps
@@ -142,6 +145,7 @@ tasks:
 
   vuejs:bash:
     desc: "Ouvre un shell bash dans le conteneur www"
+    silent: true
     cmds:
     - task: docker:stack:shell
       vars:
