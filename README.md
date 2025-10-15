@@ -3,23 +3,23 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/hackariens/vuejs/graphs/commit-activity)
-![Continuous Integration](https://github.com/hackariens/vuejs/workflows/ci/badge.svg?branch=develop)
+![Continuous Integration](https://github.com/hackariens/vuejs/actions/workflows/ci.yml/badge.svg?branch=develop)
 
 > Templates pour la création d'un nouveau projet vuejs
 
 ## 🏠 [Homepage](https://github.com/hackariens/vuejs#readme)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)
+![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Need
 
 Software:
 
-- npm
-- docker
-- repository koromerzhin/lampy
+- [task](https://taskfile.dev/)
+- [nodejs](https://nodejs.org/)
+- [lampy](https://github.com/koromerzhin/lampy)
 
 Config:
 
@@ -32,7 +32,7 @@ Hosts:
 ## Download
 
 ```sh
-git clone --recurse-submodules git@github.com:hackariens/vuejs.git vuejs
+git clone --recursive git@github.com:hackariens/vuejs.git vuejs
 cd vuejs
 ```
 
@@ -40,16 +40,16 @@ cd vuejs
 
 Edit .env with .env.example
 
-## Install
+## Create apps
 
-``` sh
-npm install
+```sh
+task create:apps
 ```
 
 ## Launch
 
 ``` sh
-npm run exec
+task vuejs:exec
 ```
 
 ## Author
@@ -94,6 +94,7 @@ Thanks goes to these wonderful people
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/koromerzhin"><img src="https://avatars0.githubusercontent.com/u/308012?v=4" width="100px;" alt=""/><br /><sub><b>Le TOULLEC Martial</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/apps/renovate"><img src="https://avatars.githubusercontent.com/in/2740?v=4" width="100px;" alt=""/><br /><sub><b>renovate[bot]</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/apps/dependabot"><img src="https://avatars.githubusercontent.com/in/29110?v=4" width="100px;" alt=""/><br /><sub><b>dependabot[bot]</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/apps/mend-bolt-for-github"><img src="https://avatars.githubusercontent.com/in/16809?v=4" width="100px;" alt=""/><br /><sub><b>mend-bolt-for-github[bot]</b></sub></a></td>
     </tr>
   </tbody>
 </table>

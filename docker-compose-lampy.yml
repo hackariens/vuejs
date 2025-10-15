@@ -4,6 +4,12 @@ networks:
     external: true
 services:
   www:
+    image: node:22.12.0
+    working_dir: /app
+    command: >
+      sh -c "npm install && npx vite --host"
+    volumes:
+      - ${PWD}/apps:/app:delegated
     networks:
       - proxylampy
     deploy:
@@ -12,4 +18,4 @@ services:
         - "traefik.http.routers.vuejs.rule=Host(`vuejs.traefik.me`)"
         - "traefik.http.routers.vuejs-tls.tls.domains[0].main=vuejs.traefik.me"
         - "traefik.http.routers.vuejs.tls=true"
-        - "traefik.http.services.vuejs.loadbalancer.server.port=8080"
+        - "traefik.http.services.vuejs.loadbalancer.server.port=5173"

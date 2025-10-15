@@ -1,0 +1,158 @@
+version: 3
+
+# Taskfile principal - Tâches globales et inclusions
+# Charge automatiquement les variables depuis le fichier .env s'il existe
+dotenv: [ '.env' ]
+
+includes:
+  docker: ./taskfiles/docker/Taskfile.yml
+  utils: ./taskfiles/utils/Taskfile.yml
+  env: ./taskfiles/env/Taskfile.yml
+  nodejs: ./taskfiles/nodejs/Taskfile.yml
+  download: ./taskfiles/download/Taskfile.yml
+
+vars:
+  # Variables avec valeurs par défaut depuis .env ou valeurs de fallback
+  PROJECT_NAME: '{{.PROJECT_NAME | default "vuejs"}}'
+  PROJECT_VERSION: '1.0.0'
+  ENVIRONMENT: '{{.ENVIRONMENT | default "development"}}'
+  STACK_NAME: '{{.STACK | default "vuejs"}}'
+  FOLDERLAMPY: '{{.FOLDERLAMPY | default "lampy"}}'
+  SERVERNAME: '{{.SERVERNAME | default "vuejs.traefik.me"}}'
+  DOCKERCOMPOSEFILE: '{{.DOCKERCOMPOSEFILE | default "docker-compose.yml"}}'
+
+tasks:
+  default:
+    desc: "Affiche l'aide et les tâches disponibles"
+    silent: true
+    cmds:
+    - echo "🛠️  Collection de Taskfiles pour le développement"
+    - echo ""
+    - echo "Tâches globales disponibles :"
+    - task --list
+    - echo ""
+
+  lint:all:
+    desc: "Exécute tous les linters disponibles"
+    cmds:
+    - npm run lint:markdown
+
+  info:
+    desc: "Affiche les informations du projet avec les variables d'environnement"
+    silent: true
+    cmds:
+    - |
+      echo "🛠️  {{.PROJECT_NAME}} v{{.PROJECT_VERSION}} - Collection de Taskfiles"
+      echo "Environnement: {{.ENVIRONMENT}}"
+
+  help:
+    desc: "Affiche l'aide détaillée"
+    aliases: [ h ]
+    silent: true
+    cmds:
+    - task: default
+
+  vuejs:getpull-image:
+    desc: "Télécharge les images Docker définies dans le docker-compose.yml"
+    silent: true
+    cmds:
+    - task: docker:images:pull
+      vars:
+        COMPOSE_FILE: "{{.DOCKERCOMPOSEFILE}}"
+
+  vuejs:deploy:
+    desc: "Déploie les stacks Docker définies dans les fichiers docker-compose"
+    silent: true
+    cmds:
+    - task: docker:stack:deploy
+      vars:
+        COMPOSE_FILE: "{{.DOCKERCOMPOSEFILE}}"
+        STACK_NAME: "{{.STACK_NAME}}"
+
+  vuejs:waiting:
+    desc: "Attend que les services soient opérationnels"
+    silent: true
+    cmds:
+    - task: docker:stack:check:containers:ready
+      vars:
+        CONTAINERS: "www"
+        STACK_NAME: "{{.STACK_NAME}}"
+
+  vuejs:ls:
+    desc: "Liste les stacks et services Docker"
+    silent: true
+    cmds:
+    - task: docker:stack:services
+      vars:
+        STACK_NAME: "{{.STACK_NAME}}"
+
+  create:apps:
+    desc: "Crée une nouvelle application vuejs dans le dossier apps"
+    silent: true
+    cmds:
+    - npx --yes create-vue apps --default
+
+  update:viteconfig:
+    silent: true
+    desc: "Met à jour vite.config.js pour ajouter server.allowedHosts"
+    cmds:
+    - |
+      # Ajouter la configuration server.allowedHosts dans vite.config.js
+      node -e "
+      const fs = require('fs');
+      const path = 'apps/vite.config.js';
+      let content = fs.readFileSync(path, 'utf8');
+      const serverName = '{{.SERVERNAME}}';
+
+      if (!content.includes('server:')) {
+        // Si server n'existe pas, l'ajouter complètement
+        content = content.replace(
+          /(\s*}\)\s*$)/,
+          ',\n  server: {\n    host: true,\n    allowedHosts: [\"' + serverName + '\"]\n  }\n})'
+        );
+        console.log('Configuration server ajoutée avec allowedHosts: ' + serverName);
+      } else if (!content.includes('allowedHosts:')) {
+        // Si server existe mais pas allowedHosts, l'ajouter
+        content = content.replace(
+          /(server:\s*{[^}]*)(}\s*)/,
+          '$1,\n    allowedHosts: [\"' + serverName + '\"]\n  $2'
+        );
+        console.log('allowedHosts ajouté avec: ' + serverName);
+      } else {
+        // Si allowedHosts existe déjà, ajouter le serverName s'il n'y est pas
+        const allowedHostsRegex = /allowedHosts:\s*\[([^\]]*)\]/;
+        const match = content.match(allowedHostsRegex);
+        if (match) {
+          const currentHosts = match[1];
+          if (!currentHosts.includes(serverName)) {
+            const newHosts = currentHosts.trim() ? currentHosts + ', \"' + serverName + '\"' : '\"' + serverName + '\"';
+            content = content.replace(allowedHostsRegex, 'allowedHosts: [' + newHosts + ']');
+            console.log('SERVERNAME ajouté à allowedHosts existant: ' + serverName);
+          } else {
+            console.log('SERVERNAME déjà présent dans allowedHosts: ' + serverName);
+          }
+        }
+      }
+
+      fs.writeFileSync(path, content);
+      "
+
+  vuejs:exec:
+    desc: "Exécute une commande dans un conteneur en cours d'exécution"
+    silent: true
+    cmds:
+    - task: vuejs:getpull-image
+    - task: create:apps
+    - task: update:viteconfig
+    - task: vuejs:deploy
+    - task: vuejs:waiting
+    - task: vuejs:ls
+
+  vuejs:bash:
+    desc: "Ouvre un shell bash dans le conteneur www"
+    silent: true
+    cmds:
+    - task: docker:stack:shell
+      vars:
+        STACK_NAME: "vuejs"
+        SERVICE_NAME: "www"
