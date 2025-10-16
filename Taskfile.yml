@@ -18,7 +18,7 @@ vars:
   STACK_NAME: '{{.STACK | default "vuejs"}}'
   FOLDERLAMPY: '{{.FOLDERLAMPY | default "lampy"}}'
   SERVERNAME: '{{.SERVERNAME | default "vuejs.traefik.me"}}'
-  DOCKERCOMPOSEFILE: '{{.DOCKERCOMPOSEFILE | default "docker-compose.yml"}}'
+  DOCKERCOMPOSEFILE: '{{.DOCKERCOMPOSEFILE | default "docker-compose-lampy.yml"}}'
 
 tasks:
   default:
