@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "cypress": "16.1.*",
-    "dotenv": "17.4.*",
+    "dotenv": "18.0.*",
     "jscpd": "5.3.*",
     "release-it": "21.1.*"
   }
