@@ -20,9 +20,9 @@
     "create-vue": "3.24.*"
   },
   "devDependencies": {
-    "cypress": "16.1.*",
+    "cypress": "16.2.*",
     "dotenv": "17.4.*",
-    "jscpd": "5.3.*",
+    "jscpd": "5.4.*",
     "release-it": "21.1.*"
   }
 }
